@@ -9,6 +9,7 @@ var fs = require("fs"),
   passport = require("passport"),
   errorhandler = require("errorhandler"),
   mongoose = require("mongoose");
+require("./config/passport");
 require("./models/User");
 var isProduction = process.env.NODE_ENV === "production";
 
@@ -24,8 +25,6 @@ app.use(bodyParser.json());
 
 app.use(require("method-override")());
 app.use(express.static(__dirname + "/public"));
-
-
 
 app.use(
   session({
