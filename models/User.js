@@ -70,6 +70,16 @@ UserSchema.methods.toAuthJSON = function() {
   };
 };
 
+UserSchema.methods.toProfileJSONFor = function(user) {
+  return {
+    username: this.username,
+    bio: this.bio,
+    image:
+      this.image || "https://static.productionready.io/images/smiley-cyrus.jpg",
+    following: false // we'll implement following functionality in a few chapters :)
+  };
+};
+
 UserSchema.plugin(uniqueValidator, { message: "is already taken." });
 
 mongoose.model("User", UserSchema);
