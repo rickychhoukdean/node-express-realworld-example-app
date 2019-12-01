@@ -10,10 +10,6 @@ const fs = require("fs"),
   errorhandler = require("errorhandler"),
   mongoose = require("mongoose");
 
-  require("./config/passport");
-  require("./models/User");
-
-
 const isProduction = process.env.NODE_ENV === "production";
 
 // Create global app object
@@ -42,12 +38,15 @@ if (!isProduction) {
   app.use(errorhandler());
 }
 
-if (isProduction) {
+if (isProduction) { 
   mongoose.connect(process.env.MONGODB_URI);
 } else {
   mongoose.connect("mongodb://localhost/conduit");
   mongoose.set("debug", true);
 }
+
+require("./models/User");
+require("./config/passport");
 
 app.use(require("./routes"));
 
