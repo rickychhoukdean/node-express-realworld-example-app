@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const secret = require("../config").secret;
 
-const UserSchema = new mongoose.Schema(
+UserSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -72,4 +72,6 @@ UserSchema.methods.toAuthJSON = function() {
 
 UserSchema.plugin(uniqueValidator, { message: "is already taken." });
 
-mongoose.model("User", UserSchema);
+
+
+module.exports = User = mongoose.model("User", UserSchema);
