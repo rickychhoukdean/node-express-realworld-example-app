@@ -26,8 +26,10 @@ const UserSchema = new mongoose.Schema(
     bio: String,
     image: String,
     hash: String,
-    salt: String
+    salt: String,
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }]
   },
+
   { timestamps: true }
 );
 
@@ -78,6 +80,19 @@ UserSchema.methods.toProfileJSONFor = function(user) {
       this.image || "https://static.productionready.io/images/smiley-cyrus.jpg",
     following: false // we'll implement following functionality in a few chapters :)
   };
+};
+
+UserSchema.methods.favorite = function(id) {
+  if (this.favorites.indexOf(id) === -1) {
+    this.favorites.push(id);
+  }
+
+  return this.save();
+};
+
+UserSchema.methods.unfavorite = function(id) {
+  this.favorites.remove(id);
+  return this.save();
 };
 
 UserSchema.plugin(uniqueValidator, { message: "is already taken." });
