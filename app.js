@@ -38,7 +38,7 @@ if (!isProduction) {
   app.use(errorhandler());
 }
 
-if (isProduction) { 
+if (isProduction) {
   mongoose.connect(process.env.MONGODB_URI);
 } else {
   mongoose.connect("mongodb://localhost/conduit");
@@ -46,7 +46,8 @@ if (isProduction) {
 }
 
 require("./models/User");
-require('./models/Article');
+require("./models/Article");
+require("./models/Comment");
 require("./config/passport");
 
 app.use(require("./routes"));

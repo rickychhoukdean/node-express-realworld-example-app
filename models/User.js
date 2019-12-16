@@ -95,6 +95,12 @@ UserSchema.methods.unfavorite = function(id) {
   return this.save();
 };
 
+UserSchema.methods.isFavorite = function(id){
+  return this.favorites.some(function(favoriteId){
+    return favoriteId.toString() === id.toString();
+  });
+};
+
 UserSchema.plugin(uniqueValidator, { message: "is already taken." });
 
 mongoose.model("User", UserSchema);
