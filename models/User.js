@@ -27,7 +27,8 @@ const UserSchema = new mongoose.Schema(
     image: String,
     hash: String,
     salt: String,
-    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }]
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
   },
 
   { timestamps: true }
@@ -95,8 +96,8 @@ UserSchema.methods.unfavorite = function(id) {
   return this.save();
 };
 
-UserSchema.methods.isFavorite = function(id){
-  return this.favorites.some(function(favoriteId){
+UserSchema.methods.isFavorite = function(id) {
+  return this.favorites.some(function(favoriteId) {
     return favoriteId.toString() === id.toString();
   });
 };
